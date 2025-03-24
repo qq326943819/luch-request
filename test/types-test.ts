@@ -1,12 +1,22 @@
 import LuchRequest from "../src/lib/luch-request"
 const luchRequest = new LuchRequest();
 
+declare module '../src/lib/luch-request' {
+  export interface HttpCustom {
+    key?: string;
+    options?: unknown;
+  }
+}
+
 luchRequest.setConfig(config => {
   return config
 })
 luchRequest.post("url", { 123: 60 }, {
-  baseURL: "/api"
-}).then(response=>{
+  baseURL: "/api",
+  custom: {
+    key: '123'
+  }
+}).then(response => {
   response.config
 })
 // LuchRequestAbstract
